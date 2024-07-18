@@ -1,0 +1,60 @@
+[
+  {
+    "category": "Delux Room",
+    "heading": "Deluxe Room",
+    "subheading": "Luxury at its finest",
+    "description": "Experience unparalleled comfort and luxury in our Deluxe Room. Equipped with modern amenities and tastefully decorated interiors, this room offers the perfect retreat for travelers seeking indulgence.",
+    "price": 2000,
+    "mainPrice": 2500,
+    "image": "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+    "facility": [
+      "Deluxe Bed",
+      "Luxury Wash Room",
+      "Free Wifi",
+      "Balcony",
+      "Restaurant Service"
+    ],
+    "roomCapacity": 3,
+    "gallery": [
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg"
+    ],
+    "bookedDates": []
+  },
+  {
+    "category": "Executive Suite",
+    "heading": "Executive Suite",
+    "subheading": "Your home away from home",
+    "description": "Step into luxury with our Executive Suite. Spacious and elegantly furnished, this suite is designed to provide a comfortable stay for both business and leisure travelers.",
+    "price": 2500,
+    "mainPrice": 3000,
+    "image": "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+    "facility": [
+      "Deluxe Bed",
+      "Luxury Wash Room",
+      "Free Wifi",
+      "Balcony",
+      "Restaurant Service"
+    ],
+    "roomCapacity": 3,
+    "gallery": [
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg",
+      "https://res.cloudinary.com/dutkerqvn/image/upload/v1714721348/IMG_5302_vikv0t.jpg"
+    ],
+    "bookedDates": []
+  }
+]

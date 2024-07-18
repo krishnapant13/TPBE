@@ -1,0 +1,52 @@
+const express = require("express");
+const ErrorHandler = require("./middleware/error");
+const app = express();
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const PORT = process.env.PORT || 8000;
+const morgan = require("morgan");
+
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(cookieParser());
+app.use("/", express.static("uploads"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://krishnapant13.github.io"],
+    credentials: true,
+  })
+);
+//comment this for local
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://krishnapant13.github.io");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Credentials", true);
+  if (req.method === "OPTIONS") {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+//config
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  require("dotenv").config({
+    path: "./.env",
+  });
+}
+// import routes
+const guest = require("./controller/guest");
+const room = require("./controller/room");
+
+app.use("/api/v2/guest", guest);
+app.use("/api/v2/room", room);
+
+//error handling
+app.use(ErrorHandler);
+module.exports = app;
