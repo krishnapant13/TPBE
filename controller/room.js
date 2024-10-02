@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ErrorHandler = require("../utills/ErrorHandler");
 const Room = require("../model/room");
+const Guest = require("../model/guest");
 const Booking = require("../model/booking");
 const sendMail = require("../utills/sendMail");
 const bookingConfirmationMail = require("../utills/bookingConfirmationMail");
@@ -50,11 +51,11 @@ const sendBookingConfirmation = async (bookingDetails, guestDetails) => {
   }
 };
 router.post("/bookRoom", async (req, res) => {
+  const { bookingDetails, userDetails, paymentMethod, guests } = req.body;
   try {
-    const { bookingDetails, guestDetails, paymentMethod } = req.body;
-
     const startDate = new Date(bookingDetails.checkInDate);
     const endDate = new Date(bookingDetails.checkOutDate);
+    const room = bookingDetails?.room;
     const roomId = bookingDetails?.room?._id;
     const roomToUpdate = await Room.findById(roomId);
 
@@ -74,15 +75,24 @@ router.post("/bookRoom", async (req, res) => {
     });
 
     await Room.findByIdAndUpdate(roomId, {
-      $set: { nextAvailableDate: roomToUpdate.bookedDates[0].endDate },
+      $set: { nextAvailableDate: roomToUpdate.bookedDates[0]?.endDate },
     });
 
     const bookedRoom = await Room.findById(roomId);
-    console.log("This is the booked Room", bookedRoom);
 
     const newBooking = new Booking({
-      room: roomId,
-      guest: guestDetails,
+      room: room,
+      guest: {
+        firstName: userDetails.firstName,
+        lastName: userDetails.lastName,
+        email: userDetails.emailAddress,
+        phoneNumber: userDetails.phoneNumber,
+        state: userDetails.state,
+        country: userDetails.country,
+        zipCode: userDetails.zipCode,
+        address: userDetails.address,
+      },
+      guests: guests,
       checkInDate: startDate,
       checkOutDate: endDate,
       guestCount: bookingDetails.guestCount,
@@ -91,18 +101,19 @@ router.post("/bookRoom", async (req, res) => {
     });
 
     await newBooking.save();
-
-    await Guest.findByIdAndUpdate(guestDetails._id, {
+    await Guest.findByIdAndUpdate(userDetails._id, {
       $push: {
         bookedRooms: {
           roomId: roomId,
           checkInDate: startDate,
           checkOutDate: endDate,
           bookedOn: new Date(),
+          bookingDetails: bookingDetails,
+          guests: guests,
         },
       },
     });
-    sendBookingConfirmation(bookingDetails, guestDetails);
+    sendBookingConfirmation(bookingDetails, userDetails);
     res.status(200).json({ message: "Booking successful", bookedRoom });
   } catch (error) {
     res.status(500).json({ message: "Booking failed", error: error.message });

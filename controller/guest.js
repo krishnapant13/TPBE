@@ -30,7 +30,6 @@ router.post("/create-guest", upload, async (req, res, next) => {
       return next(new ErrorHandler("Guest already exists, Please Login", 400));
     }
     const imageUrl = await uploadToCloudinary(req.file.buffer);
-    console.log("url", imageUrl);
 
     const guest = await Guest.create({
       firstName,
@@ -118,5 +117,23 @@ router.put(
     }
   })
 );
+router.get(
+  "/get-guest/:id",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const guest = await Guest.findById(req.params.id);
+      if (!guest) {
+        return next(new ErrorHandler("Guest not found", 404));
+      }
+      res.status(200).json({
+        success: true,
+        guest,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 
 module.exports = router;

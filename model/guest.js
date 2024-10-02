@@ -50,6 +50,11 @@ const guestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["guest", "admin"],
+    default: "guest",
+  },
   bookedRooms: [
     {
       roomId: {
@@ -60,6 +65,7 @@ const guestSchema = new mongoose.Schema({
       checkInDate: { type: Date, required: true },
       checkOutDate: { type: Date, required: true },
       bookedOn: { type: Date, default: Date.now },
+      bookingDetails: {},
     },
   ],
 });

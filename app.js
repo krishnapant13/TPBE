@@ -43,9 +43,11 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 // import routes
 const guest = require("./controller/guest");
 const room = require("./controller/room");
+const booking = require("./controller/booking");
 
 app.use("/api/v2/guest", guest);
 app.use("/api/v2/room", room);
+app.use("/api/v2/booking", booking);
 
 //error handling
 app.use(ErrorHandler);
