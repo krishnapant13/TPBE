@@ -9,6 +9,7 @@ const roomSchema = new mongoose.Schema({
   mainPrice: { type: Number, required: true },
   image: { type: String, required: true },
   facility: [{ type: String }],
+  length: { type: String, required: true },
   roomCapacity: { type: Number, required: true },
   gallery: [{ type: String }],
   bookedDates: [{ startDate: Date, endDate: Date }],

@@ -14,13 +14,20 @@ app.use("/", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://krishnapant13.github.io"],
+    origin: [
+      "https://trishulregency.in",
+      "https://www.trishulregency.in",
+      "https://trishulregency.com",
+      "https://www.trishulregency.com",
+      "https://krishnapant13.github.io",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
 //comment this for local
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://krishnapant13.github.io");
+  res.header("Access-Control-Allow-Origin", "https://trishulregency.in");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
