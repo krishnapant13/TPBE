@@ -7,6 +7,7 @@ const { isAuthenticated } = require("../middleware/auth");
 const ErrorHandler = require("../utills/ErrorHandler");
 const sendToken = require("../utills/jwtToken");
 const multer = require("multer");
+const CryptoJS = require("crypto-js");
 
 const uploadToCloudinary = require("../utills/cloudinaryUploads");
 const upload = multer().single("avatar");
@@ -60,15 +61,27 @@ router.post(
     if (!email || !password) {
       return next(new ErrorHandler("Please provide all fields!", 400));
     }
+    const decryptedEmail = CryptoJS.AES.decrypt(
+      email,
+      process.env.ENCRYPTION_KEY
+    ).toString(CryptoJS.enc.Utf8);
+    const decryptedPassword = CryptoJS.AES.decrypt(
+      password,
+      process.env.ENCRYPTION_KEY
+    ).toString(CryptoJS.enc.Utf8);
 
-    const guest = await Guest.findOne({ emailAddress: email }).select(
+    if (!decryptedEmail || !decryptedPassword) {
+      return next(new ErrorHandler("Please provide all fields!", 400));
+    }
+
+    const guest = await Guest.findOne({ emailAddress: decryptedEmail }).select(
       "+password"
     );
     if (!guest) {
       return next(new ErrorHandler("Guest doesn't exist", 400));
     }
 
-    const isPasswordValid = await guest.comparePassword(password);
+    const isPasswordValid = await guest.comparePassword(decryptedPassword);
     if (!isPasswordValid) {
       return next(new ErrorHandler("Wrong password entered", 400));
     }
@@ -134,6 +147,5 @@ router.get(
     }
   })
 );
-
 
 module.exports = router;

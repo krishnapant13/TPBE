@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [
+      "http://localhost:3000",
       "https://trishulregency.in",
       "https://www.trishulregency.in",
       "https://trishulregency.com",
@@ -26,20 +27,20 @@ app.use(
   })
 );
 //comment this for local
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://trishulregency.in");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-Credentials", true);
-  if (req.method === "OPTIONS") {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "https://trishulregency.in");
+//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//   );
+//   res.header("Access-Control-Allow-Credentials", true);
+//   if (req.method === "OPTIONS") {
+//     res.sendStatus(200);
+//   } else {
+//     next();
+//   }
+// });
 
 //config
 if (process.env.NODE_ENV !== "PRODUCTION") {
@@ -51,10 +52,12 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 const guest = require("./controller/guest");
 const room = require("./controller/room");
 const booking = require("./controller/booking");
+const review = require("./controller/review");
 
 app.use("/api/v2/guest", guest);
 app.use("/api/v2/room", room);
 app.use("/api/v2/booking", booking);
+app.use("/api/v2/review", review);
 
 //error handling
 app.use(ErrorHandler);
